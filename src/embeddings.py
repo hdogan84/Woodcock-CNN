@@ -13,9 +13,13 @@ sys.path.append(birdnet_path)
 import birdnet_analyzer
 import subprocess
 
+## Calculate embeddings for Xeno-canto data
+#audio_folder = str(user_root) + '/Woodcock-CNN/data/train_data/audio/0/'
+#embedding_folder = str(user_root) + '/Woodcock-CNN/data/train_data/embedding/birdnet/0'
 
-audio_folder = str(user_root) + '/Woodcock-CNN/data/train_data/audio/0/'
-embedding_folder = str(user_root) + '/Woodcock-CNN/data/train_data/embedding/birdnet/0'
+## Calculate embeddings for Holderried data
+audio_folder = str(user_root) + '/Woodcock-CNN/data/Holderried/selections_wavs/'
+embedding_folder = str(user_root) + '/Woodcock-CNN/data/train_data/embedding/holderried/1'
 
 
 subprocess.run(
