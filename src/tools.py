@@ -9,6 +9,7 @@ from pathlib import Path
 import soundfile as sf
 import random
 import string
+import pandas as pd
 
 def generate_filename():
     filename = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
@@ -45,20 +46,24 @@ def extract_audio(sig, rate, begin_times, base_folder, main_wav, length):
 
 
 def get_embedding_birdnet(root_folder, pos_or_neg):
-    
-    features = []
-    embed_folder = root_folder+str(pos_or_neg)+'/'
+
+    rows = []
+    embed_folder = os.path.join(root_folder, str(pos_or_neg))
     embeddings_txt_files = os.listdir(embed_folder)
 
     for filename in embeddings_txt_files:
-        txt_path = Path(os.path.join(embed_folder, filename))
+        txt_path = Path(embed_folder) / filename
 
         with open(txt_path, "r") as file:
             values = file.readlines()[0].split("\t")[2]
             float_vals = [float(x) for x in values.split(",")]
-        features.append(float_vals)
 
-    return features
+        rows.append({
+            "embed_name": filename,
+            "embedding": float_vals
+        })
+
+    return pd.DataFrame(rows)
 
 
 def get_embedding_pyAudio(root_folder, pos_or_neg):
