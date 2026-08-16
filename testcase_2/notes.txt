@@ -1,0 +1,6 @@
+The way this dataset was formed. 
+- First we take all columns that contain "whistle" in annotation
+- those should be short-postives
+- Then sort wrt. to date, and tale the latest 20 % as test set.
+- Start precise annotation for test set as it is held-out set. 
+- For the train part of it, the idea was to take Holder positives and any other negatives.  

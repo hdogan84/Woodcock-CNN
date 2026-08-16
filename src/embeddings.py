@@ -16,8 +16,8 @@ import subprocess
 ## Note: conda activate birdnet, then go into src folder, then run python embeddings.py
 
 ## Calculate embeddings for Xeno-canto data
-audio_folder = str(user_root) + '/Woodcock-CNN/data/test_data/audio/1/'
-embedding_folder = str(user_root) + '/Woodcock-CNN/data/test_data/embedding/birdnet/1'
+audio_folder = str(user_root) + '/Woodcock-CNN/data/audiomoth_Eurasian/audio/0/'
+embedding_folder = str(user_root) + '/Woodcock-CNN/data/audiomoth_Eurasian/embedding/0'
 
 ## Calculate embeddings for Holderried data
 #audio_folder = str(user_root) + '/Woodcock-CNN/data/Holderried/selections_wavs/'
