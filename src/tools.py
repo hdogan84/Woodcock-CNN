@@ -3,7 +3,7 @@ from scipy.signal import butter, sosfilt, lfilter
 from scipy import signal
 from PIL import Image
 import numpy as np
-import cv2
+#import cv2
 import os, glob
 from pathlib import Path
 import soundfile as sf

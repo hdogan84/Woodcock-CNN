@@ -88,10 +88,10 @@ def predict_folder(folder, analyzer):
 
 def main():
 
-    analyzer = Analyzer(
-        classifier_model_path=MODEL_PATH,
-        classifier_labels_path=LABEL_PATH,
-    )
+    #analyzer = Analyzer(
+    #    classifier_model_path=MODEL_PATH,
+    #    classifier_labels_path=LABEL_PATH,
+    #)
 
     analyzer = Analyzer()
 
