@@ -62,19 +62,21 @@ print(f"\nDF length after excluding Negative selections: {len(df_sliced)}")
 # Slice main CSV to those recording IDs
 # --------------------------------------------------
 
-df_sliced = df_sliced[df_sliced["date"].isin(dates)].copy()
+df_pos = df_sliced[df_sliced["recording.id"].isin(recording_ids)].copy()
+
+#df_sliced = df_sliced[df_sliced["date"].isin(dates)].copy()
 #df_sliced = df_sliced[df_sliced["site.id"].isin(site_ids)].copy()
-df_sliced = df_sliced[df_sliced["duration"] < 3.05]
 
-print(f"\nRows belonging to positive test set: {len(df_sliced)}")
+#df_pos = df_pos[df_pos["duration"] < 3.05]
 
-print("Number of rows with duration > 3 seconds:", (df_sliced["duration"] < 3.05).sum())
+print(f"\nRows belonging to positive test set: {len(df_pos)}")
+
 
 # --------------------------------------------------
 # Save
 # --------------------------------------------------
 
-# df_sliced.to_csv(output_file, index=False)
+# df_pos.to_csv(output_file, index=False)
 
-print(f"\nFinal rows: {len(df_sliced)}")
+print(f"\nFinal rows: {len(df_pos)}")
 print(f"Saved to: {output_file}")

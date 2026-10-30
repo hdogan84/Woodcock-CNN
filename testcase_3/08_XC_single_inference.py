@@ -26,18 +26,33 @@ from tools import get_embedding_birdnet
 # ---------------------------------------------------------------------
 
 ROOT_FOLDER = "../data/test_data_3/embedding/"
-DATASET = "ds1"
-
-# ---------------------------------------------------------------------
-# Load test data
-# ---------------------------------------------------------------------
-
-df_pos = get_embedding_birdnet(ROOT_FOLDER, 1)
 df_neg = get_embedding_birdnet(ROOT_FOLDER, 0)
-
-df_pos["target"] = 1
 df_neg["target"] = 0
 
+# ---------------------------------------------------------------------
+# Load test data - Positives
+# ---------------------------------------------------------------------
+ROOT_FOLDER = "../data/train_data/embedding/holderried/"
+df_pos = get_embedding_birdnet(ROOT_FOLDER, 1)
+
+df_pos["selec"] = (
+    df_pos["embed_name"]
+    .str.extract(r"^(\d+)")
+    .astype(int)
+)
+
+df_pos["target"] = 1
+
+# You need to slice out for the held-out part of the positives 
+df_heldout_pos = pd.read_csv("selecs_positive_test_samedate_samesite.csv") 
+#df_heldout_pos = pd.read_csv("selecs_positive_test_samedate.csv") 
+
+selec_ids = df_heldout_pos["selec"].unique()
+df_pos = df_pos[df_pos["selec"].isin(selec_ids)]
+
+print(f"Number of positive samples in test set: {len(df_pos)}")
+
+### Concat
 df_test = pd.concat([df_pos, df_neg], ignore_index=True)
 
 X_test = np.vstack(df_test["embedding"].values)
@@ -53,8 +68,10 @@ best_f1s = []
 best_thresholds = []
 
 
+# model = joblib.load(f"../notebooks/rfc_model_negfold_1.joblib")
+
 model = joblib.load(
-    f"../notebooks/rfc_model_negfold_1.joblib"
+    f"../testcase_1/saved_models/svc_model_testdata1.joblib"
 )
 
 y_pred = model.predict(X_test)

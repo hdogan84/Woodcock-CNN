@@ -1,0 +1,3 @@
+- test data 4 was related to family Scolopicadae
+- Test data 5 is about Baden Wurttemberg. Seed 1 was the first version. Fetched with "box" fro GPS
+- Seed 3 takes all Audiomoth, no FVA

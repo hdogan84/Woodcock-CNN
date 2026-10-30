@@ -43,8 +43,8 @@ df_pos["selec"] = (
 df_pos["target"] = 1
 
 # You need to slice out for the held-out part of the positives 
-df_heldout_pos = pd.read_csv("selecs_positive_test_samedate_samesite.csv") 
-#df_heldout_pos = pd.read_csv("selecs_positive_test_samedate.csv") 
+#df_heldout_pos = pd.read_csv("selecs_positive_test_samedate_samesite.csv") 
+df_heldout_pos = pd.read_csv("selecs_positive_test_samedate.csv") 
 
 selec_ids = df_heldout_pos["selec"].unique()
 df_pos = df_pos[df_pos["selec"].isin(selec_ids)]

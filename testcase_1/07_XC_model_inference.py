@@ -25,7 +25,7 @@ from tools import get_embedding_birdnet
 # Configuration
 # ---------------------------------------------------------------------
 
-ROOT_FOLDER = "../data/test_data/embedding/birdnet/"
+ROOT_FOLDER = "../data/test_data/embedding/"
 DATASET = "ds1"
 
 # ---------------------------------------------------------------------

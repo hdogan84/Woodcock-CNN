@@ -24,7 +24,7 @@ LABEL_PATH = "../models/BirdNET-Analyzer-V2.2/V2.2/BirdNET_GLOBAL_3K_V2.2_Labels
 POS_FOLDER = "../data/Holderried/selections_wavs/1"
 NEG_FOLDER = "../data/test_data_3/audio/0"
 
-OUTPUT_PREDICTIONS = "testset3_predictions.npy"
+OUTPUT_PREDICTIONS = "testset3_predictions.npz"
 OUTPUT_F1 = "testset3_f1.npz"
 
 TARGET_SPECIES = "Scolopax rusticola"
@@ -105,7 +105,11 @@ def main():
     predictions = {**pred_pos, **pred_neg}
     labels = {**labels_pos, **labels_neg}
 
-    np.save(OUTPUT_PREDICTIONS, predictions)
+    np.savez(
+            "testset3_results.npz",
+            predictions=predictions,
+            labels=labels,
+        )
 
     sorted_keys = sorted(predictions.keys())
 

@@ -30,7 +30,7 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=1):
     return y
 
 
-def extract_audio(sig, rate, begin_times, base_folder, main_wav, length):
+def extract_audio(sig, rate, begin_times, base_folder, main_wav, length, offset=0):
 
     for t_begin in begin_times:
         t_begin = int(t_begin)
@@ -39,7 +39,7 @@ def extract_audio(sig, rate, begin_times, base_folder, main_wav, length):
         index_end=index_begin+length*rate
         segment=sig[index_begin:index_end]
         #print(len(segment))
-        filename=base_folder+main_wav[:-4]+"_"+str(t_begin)+'.wav'
+        filename=base_folder+main_wav[:-4]+"_"+str(t_begin+int(offset))+'.wav'
         #print(filename)
         sf.write(filename, segment, rate)
 

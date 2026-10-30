@@ -67,10 +67,10 @@ aps = []
 best_f1s = []
 best_thresholds = []
 
-for fold in range(1, 6):
+for fold in range(0, 5):
 
     model = joblib.load(
-        f"../notebooks/saved_models/ds1_svm_fold_{fold}.joblib"
+        f"../testcase_4/saved_models/svc_model_negfold_{fold}.joblib"
     )
 
     y_pred = model.predict(X_test)

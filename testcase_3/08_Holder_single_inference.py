@@ -28,6 +28,8 @@ from tools import get_embedding_birdnet
 # Configuration
 # ---------------------------------------------------------------------
 
+model_type = "rfc"
+
 ROOT_FOLDER = "../data/test_data_3/embedding/"
 df_neg = get_embedding_birdnet(ROOT_FOLDER, 0)
 df_neg["target"] = 0
@@ -47,8 +49,9 @@ df_pos["selec"] = (
 df_pos["target"] = 1
 
 # You need to slice out for the held-out part of the positives 
-df_heldout_pos = pd.read_csv("selecs_positive_test_samedate_samesite.csv") 
+#df_heldout_pos = pd.read_csv("selecs_positive_test_samedate_samesite.csv") 
 #df_heldout_pos = pd.read_csv("selecs_positive_test_samedate.csv") 
+df_heldout_pos = pd.read_csv("selecs_positive_test.csv") 
 
 selec_ids = df_heldout_pos["selec"].unique()
 df_pos = df_pos[df_pos["selec"].isin(selec_ids)]
@@ -69,7 +72,7 @@ best_f1s = []
 best_thresholds = []
 
 
-model = joblib.load(f"../Holderried/svc_model.joblib")
+model = joblib.load(f"../Holderried/{model_type}_model.joblib")
 
 y_pred = model.predict(X_test)
 y_score = model.predict_proba(X_test)[:, 1]
@@ -101,26 +104,3 @@ print(f"Best F1       : {best_f1:.4f}")
 print(f"Best threshold: {best_threshold:.4f}")
 print(cm)
 
-# ---------------------------------------------------------------------
-# Summary
-# ---------------------------------------------------------------------
-
-print("\n==========================")
-
-print("Accuracy per model :", np.round(accuracies, 4))
-print(f"Accuracy           : {np.mean(accuracies):.4f} ± {np.std(accuracies, ddof=1):.4f}")
-
-print()
-
-print("AP per model       :", np.round(aps, 4))
-print(f"AP                 : {np.mean(aps):.4f} ± {np.std(aps, ddof=1):.4f}")
-
-print()
-
-print("Best F1 per model  :", np.round(best_f1s, 4))
-print(f"Best F1            : {np.mean(best_f1s):.4f} ± {np.std(best_f1s, ddof=1):.4f}")
-
-print()
-
-print("Best thresholds    :", np.round(best_thresholds, 4))
-print(f"Mean threshold     : {np.mean(best_thresholds):.4f}")

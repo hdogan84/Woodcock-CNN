@@ -20,10 +20,10 @@ from sklearn.metrics import (
 MODEL_PATH = "../models/BirdNET-Analyzer-V2.2/V2.2/BirdNET_GLOBAL_3K_V2.2_Model_FP32.tflite"
 LABEL_PATH = "../models/BirdNET-Analyzer-V2.2/V2.2/BirdNET_GLOBAL_3K_V2.2_Labels.txt"
 
-POS_FOLDER = "../data/test_data/audio/1"
-NEG_FOLDER = "../data/test_data/audio/0"
+POS_FOLDER = "../data/test_data/audio/longest5/1"
+NEG_FOLDER = "../data/test_data/audio/longest5/0"
 
-OUTPUT_PREDICTIONS = "testset1_predictions.npy"
+OUTPUT_PREDICTIONS = "testset1_predictions.npz"
 OUTPUT_F1 = "testset1_f1.npz"
 
 TARGET_SPECIES = "Scolopax rusticola"
@@ -104,7 +104,11 @@ def main():
     predictions = {**pred_pos, **pred_neg}
     labels = {**labels_pos, **labels_neg}
 
-    np.save(OUTPUT_PREDICTIONS, predictions)
+    np.savez(
+        "testset1_results.npz",
+        predictions=predictions,
+        labels=labels,
+    )
 
     sorted_keys = sorted(predictions.keys())
 
@@ -136,7 +140,7 @@ def main():
 
     precision, recall, thr = precision_recall_curve(y_true, y_pred)
 
-    plt.figure()
+    """plt.figure()
     plt.plot(recall, precision, marker=".")
     plt.xlabel("Recall")
     plt.ylabel("Precision")
@@ -156,13 +160,13 @@ def main():
     plt.xlabel("Threshold")
     plt.ylabel("Recall")
     plt.grid(True)
-    plt.show()
+    plt.show()"""
 
     # -------------------------------------------------------------
     # Precision and Recall vs threshold
     # -------------------------------------------------------------
 
-    fig, ax1 = plt.subplots()
+    """fig, ax1 = plt.subplots()
 
     ax1.plot(thr, precision[:-1])
     ax1.set_xlabel("Confidence threshold")
@@ -177,7 +181,7 @@ def main():
     ax2.set_ylim([0, 1.05])
 
     fig.tight_layout()
-    plt.show()
+    plt.show()"""
 
     # -------------------------------------------------------------
     # F1
@@ -192,7 +196,7 @@ def main():
     plt.xlabel("Threshold")
     plt.ylabel("F1")
     plt.grid(True)
-    plt.show()
+    #plt.show()
 
     thr_uniform = np.linspace(thr.min(), thr.max(), 100)
 
@@ -211,7 +215,7 @@ def main():
     plt.xlabel("Threshold")
     plt.ylabel("F1")
     plt.grid(True)
-    plt.show()
+    #plt.show()
 
 
 if __name__ == "__main__":

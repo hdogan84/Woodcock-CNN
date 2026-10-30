@@ -4,7 +4,7 @@ import pandas as pd
 # File paths
 # --------------------------------------------------
 
-main_file = "../data/Holderried/selections.csv"
+main_file = "../../data/Holderried/selections.csv"
 short_file = "selec_long_neg.csv"
 output_file = "selecs_positive_test.csv"
 

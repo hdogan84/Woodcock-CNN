@@ -22,13 +22,16 @@ MODEL_PATH = "../models/BirdNET-Analyzer-V2.2/V2.2/BirdNET_GLOBAL_3K_V2.2_Model_
 LABEL_PATH = "../models/BirdNET-Analyzer-V2.2/V2.2/BirdNET_GLOBAL_3K_V2.2_Labels.txt"
 
 POS_FOLDER = "../data/Holderried/selections_wavs/1"
-#POS_CSV = "selecs_positive_test.csv"
-POS_CSV = "selecs_positive_test_samedate_samesite.csv"
+
+#POS_CSV = "selecs_positive_test_samedate_samesite.csv"
+#POS_CSV = "selecs_positive_test_samedate.csv"
+POS_CSV = "selecs_positive_test.csv"
 
 NEG_FOLDER = "../data/test_data_3/audio/0"
 
-OUTPUT_PREDICTIONS = "testset3_predictions.npy"
-OUTPUT_F1 = "testset3_f1.npz"
+
+OUTPUT_PREDICTIONS = "testset3_predictions_samerecord.npz"
+OUTPUT_F1 = "testset3_f1_samerecord.npz"
 
 TARGET_SPECIES = "Scolopax rusticola"
 
@@ -159,10 +162,12 @@ def predict_folder(folder, analyzer):
 
 def main():
 
-    analyzer = Analyzer(
+    """analyzer = Analyzer(
         classifier_model_path=MODEL_PATH,
         classifier_labels_path=LABEL_PATH,
-    )
+    )"""
+
+    analyzer = Analyzer()
 
     # -------------------------------------------------------------
     # Positive predictions: ONLY files listed in CSV
@@ -187,6 +192,12 @@ def main():
         analyzer,
     )
 
+    """pred_neg, labels_neg = predict_csv_files(
+        NEG_CSV,
+        NEG_FOLDER,
+        analyzer,
+    )"""
+
     # -------------------------------------------------------------
     # Combine
     # -------------------------------------------------------------
@@ -194,7 +205,12 @@ def main():
     predictions = {**pred_pos, **pred_neg}
     labels = {**labels_pos, **labels_neg}
 
-    np.save(OUTPUT_PREDICTIONS, predictions)
+    np.savez(OUTPUT_PREDICTIONS,
+              predictions=predictions,
+             labels=labels,
+            )
+    
+    
 
     sorted_keys = sorted(predictions.keys())
 

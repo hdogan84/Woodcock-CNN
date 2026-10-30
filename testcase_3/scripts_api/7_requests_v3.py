@@ -5,7 +5,7 @@ url = "https://xeno-canto.org/api/3/recordings"
 
 MAX_RECORDINGS = 300
 
-page = 10
+page = 1
 found = []
 
 while len(found) < MAX_RECORDINGS:
