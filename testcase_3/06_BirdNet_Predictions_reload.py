@@ -13,8 +13,8 @@ from sklearn.metrics import (
 # Configuration
 # ---------------------------------------------------------------------
 
-INPUT_RESULTS = "testset3_predictions_samerecord.npz"
-OUTPUT_F1 = "testset3_f1_samerecord.npz"
+INPUT_RESULTS = "testset3_results_samedate.npz"
+OUTPUT_F1 = "testset3_f1_samedate.npz"
 
 THRESHOLD = 0.5
 

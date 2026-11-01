@@ -28,7 +28,7 @@ from tools import get_embedding_birdnet
 # Configuration
 # ---------------------------------------------------------------------
 
-model_type = "rfc"
+model_type = "xgb"
 
 ROOT_FOLDER = "../data/test_data_3/embedding/"
 df_neg = get_embedding_birdnet(ROOT_FOLDER, 0)
@@ -50,8 +50,8 @@ df_pos["target"] = 1
 
 # You need to slice out for the held-out part of the positives 
 #df_heldout_pos = pd.read_csv("selecs_positive_test_samedate_samesite.csv") 
-#df_heldout_pos = pd.read_csv("selecs_positive_test_samedate.csv") 
-df_heldout_pos = pd.read_csv("selecs_positive_test.csv") 
+df_heldout_pos = pd.read_csv("selecs_positive_test_samedate.csv") 
+#df_heldout_pos = pd.read_csv("selecs_positive_test.csv") 
 
 selec_ids = df_heldout_pos["selec"].unique()
 df_pos = df_pos[df_pos["selec"].isin(selec_ids)]
@@ -72,7 +72,7 @@ best_f1s = []
 best_thresholds = []
 
 
-model = joblib.load(f"../Holderried/{model_type}_model.joblib")
+model = joblib.load(f"../Holderried/full_models_backup/{model_type}_model.joblib")
 
 y_pred = model.predict(X_test)
 y_score = model.predict_proba(X_test)[:, 1]
