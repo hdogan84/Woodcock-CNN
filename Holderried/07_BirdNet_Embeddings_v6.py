@@ -1,4 +1,3 @@
-# %%
 #from skimage import feature
 import pandas as pd
 import numpy as np
@@ -20,32 +19,30 @@ from sklearn.neighbors import KNeighborsClassifier as KNN
 import xgboost as XGB
 
 
-# %%
 parent_folder = Path().resolve().parent
 src_path = parent_folder / 'src'
 sys.path.append(str(src_path))
 
 from tools import get_embedding_birdnet
 
-# %% [markdown]
+
 # #env to use: clef
 
-# %%
+
 df_full = pd.read_csv("../testcase_3/selections.csv")
 
-# %%
+
 #df_full[df_full["recording.id"]==27063]
 
-# %%
+
 root_folder='../data/test_data_3/embedding/'
 df_neg = get_embedding_birdnet(root_folder, 0)
 df_neg["selec"] = df_neg["embed_name"].str.split("_").str[0].astype(int)
 
 
-# %%
 df_neg["filename"] = df_neg["embed_name"].str.split(".", n=1).str[0]
 
-# %%
+
 df_neg = df_neg.merge(
     df_full,
     on="selec",
@@ -54,20 +51,15 @@ df_neg = df_neg.merge(
 
 df_neg = df_neg.dropna()
 
-# %%
 df_neg["date"] = df_neg["sound.files"].str.split("_").str[0]
 
-# %%
-len(df_neg)
 
-# %%
 df_train = pd.read_csv("../testcase_3/selecs_positive_test_samedate.csv")
 
-# %%
+
 root_folder='../data/train_data/embedding/holderried/'
 df_pos = get_embedding_birdnet(root_folder, 1)
 
-# %%
 df_pos["selec"] = (
     df_pos["embed_name"]
     .str.extract(r"^(\d+)")
@@ -156,10 +148,8 @@ ap = cross_val_score(
 print(f"Accuracy: {accuracies.mean():.4f} ± {accuracies.std(ddof=1):.4f}")
 print(f"AP: {ap.mean():.4f} ± {ap.std(ddof=1):.4f}")
 
-# %% [markdown]
-# Random Forest
 
-# %%
+# Random Forest
 model = RFC(n_jobs = -1)
 
 accuracies = cross_val_score(
@@ -184,10 +174,8 @@ ap = cross_val_score(
 print(f"Accuracy: {accuracies.mean():.4f} ± {accuracies.std(ddof=1):.4f}")
 print(f"AP: {ap.mean():.4f} ± {ap.std(ddof=1):.4f}")
 
-# %% [markdown]
-# XGBOOST
 
-# %%
+# XGBOOST
 model = XGB.XGBClassifier(objective='binary:logistic')
 
 accuracies = cross_val_score(
@@ -293,10 +281,6 @@ plt.show()
 
 
 
-#plt.plot(recall, precision, marker='.')
-#plt.xlabel('Recall')
-#plt.ylabel('Precision')
-#plt.title('Precision-Recall Curve')
-#plt.show()
+
 
 
