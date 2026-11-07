@@ -160,7 +160,7 @@ for fold in range(N_FOLDS):
 
 os.makedirs("confusion_matrices", exist_ok=True)
 
-threshold = 0.5
+threshold = 0.01
 
 results = []
 confusion_matrices = []

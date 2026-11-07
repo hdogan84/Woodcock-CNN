@@ -16,7 +16,7 @@ from sklearn.metrics import (
 INPUT_RESULTS = "testset3_results_samedate.npz"
 OUTPUT_F1 = "testset3_f1_samedate.npz"
 
-THRESHOLD = 0.5
+THRESHOLD = 0.01
 
 
 # ---------------------------------------------------------------------
