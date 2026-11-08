@@ -2,7 +2,6 @@
 data/
 data_2/
 old_notebooks/
-own_cnn/
 reports/
 fva_neg/
 fva_neg/script_api/FVA_non_Eurasian/
@@ -14,6 +13,7 @@ testcase_4_5/
 Holderried/
 notebooks/
 Sec3_notebooks/
+Section_3/saved_models/
 
 testcase_4_5/script_api/XC_BadenWurttem/
 testcase_4_5/script_api/XC_non_Eurasian_2024/
