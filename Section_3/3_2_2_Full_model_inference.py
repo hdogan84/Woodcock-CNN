@@ -49,7 +49,7 @@ df_pos["selec"] = (
 df_pos["target"] = 1
 
 # Slice out the held-out part of the positives 
-df_heldout_pos = pd.read_csv("selecs_positive_test_samedate.csv") 
+df_heldout_pos = pd.read_csv("../data/Holderried/Holderried_pos_test.csv") 
 
 
 selec_ids = df_heldout_pos["selec"].unique()
@@ -90,11 +90,6 @@ best_idx = np.argmax(f1[:-1])
 
 best_f1 = f1[best_idx]
 best_threshold = thresholds[best_idx]
-
-accuracies.append(acc)
-aps.append(ap)
-best_f1s.append(best_f1)
-best_thresholds.append(best_threshold)
 
 
 print(f"Accuracy      : {acc:.4f}")
