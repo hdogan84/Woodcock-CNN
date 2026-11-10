@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 """Train full-dataset BirdNET embedding classifiers and save the fitted models.
 
-This reproduces the workflow in 3_2_1_train_full.ipynb:
 - Load three positive embedding sources and seven negative sources.
 - Attach Holderried metadata to the first positive source.
 - Combine and shuffle all samples (random_state=22).
-- Fit a linear SVM, Random Forest, and XGBoost classifier on the full dataset.
+- Fit a SVM, Random Forest, and XGBoost classifier on the full dataset.
 - Save each fitted model as a joblib file and print its training accuracy.
 
-Run from the same working directory used for the notebook so the default
-relative paths resolve in the same way.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -66,10 +64,7 @@ def load_dataset(data_root: Path, metadata_file: Path) -> pd.DataFrame:
     )
     pos1["filename"] = pos1["embed_name"].astype(str).str.split(".").str[0]
     pos1["selec"] = pd.to_numeric(pos1["filename"], errors="coerce")
-    if pos1["selec"].isna().any():
-        raise ValueError(
-            "Could not convert some Holderried positive filenames to selection IDs."
-        )
+    
     pos1["selec"] = pos1["selec"].astype(int)
     pos1 = pos1.merge(
         holderried_metadata[["selec", "sound.files", "recording.id"]],
@@ -141,11 +136,11 @@ def load_dataset(data_root: Path, metadata_file: Path) -> pd.DataFrame:
     positives["target"] = 1
     negatives["target"] = 0
 
-    combined = pd.concat(
-        [positives, negatives], ignore_index=True, sort=False
-    )
+    combined = pd.concat([positives, negatives], ignore_index=True, sort=False)
+
     if combined.empty:
         raise ValueError("No embedding samples were loaded.")
+    
     return combined
 
 
